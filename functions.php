@@ -197,7 +197,6 @@ function cos_child_theme_customize_register( $wp_customize ) {
          
     }
 
-
 }
 
 // *********************************************
@@ -296,13 +295,13 @@ function get_person_tabs_markup( $post ) {
 				if ( $tab_first === '0' ){
 					$tab_nav .= 'active';
 					$tab_content .= 'active show" aria-expanded="true"';
+          $tab_first = '1';
 				} elseif ( $tab_first !== '0' ){
 					$tab_content .= '" aria-expanded="false"';
 				}
 				$tab_nav .= '" href="#'.$tab_anchor.'" data-toggle="tab" role="tab" aria-controls="'.$tab_anchor.'">'.$tab_title.'</a></li>';
 				$tab_content .= ' role="tabpanel" id="'.$tab_anchor.'" ><h3>'.$tab_title.'</h3>'.get_sub_field('person_tab_content').'</div>';
 			endif;							
-			++$tab_first;
 
 		endwhile;
 
@@ -321,10 +320,19 @@ function get_person_tabs_markup( $post ) {
 		$news_articles = do_shortcode( '[ucf-news-feed limit="3" layout="modern" title="" topics="'.$news_slug.'"]') ; 
 		// If articles are returned
 		if ( !empty($news_articles) && $news_articles !== 'There are no news stories at this time.' ){
-			
-			$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';	
-
-			$tab_content .= '<div class="tab-pane fade " role="tabpanel" id="news" aria-expanded="false"><h3>In the News</h3>'.$news_articles.'</div>';
+			$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill ';
+			$tab_content .= '<div class="tab-pane fade ';
+      
+      if ( $tab_first === '0' ){
+        $tab_nav .= 'active';
+        $tab_content .= 'active show" aria-expanded="true"';
+        $tab_first = '1';
+      } elseif ( $tab_first !== '0' ){
+        $tab_content .= '" aria-expanded="false"';
+      }
+      
+			$tab_nav .= '" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';	
+			$tab_content .= ' role="tabpanel" id="news" aria-expanded="false"><h3>In the News</h3>'.$news_articles.'</div>';
 		}
 	}
 
@@ -350,7 +358,7 @@ function get_person_tabs_markup( $post ) {
 			if ( $tab_first === '0' ){
 				$tab_nav .= 'active';
 				$tab_content .= 'active show" aria-expanded="true"';
-				++$tab_first;
+				$tab_first = '1';
 			} elseif ( $tab_first !== '0' ){
 				$tab_content .= '" aria-expanded="false"';
 			}
@@ -391,7 +399,7 @@ function get_person_tabs_markup( $post ) {
 			if ( $tab_first === '0' ){
 				$tab_nav .= 'active';
 				$tab_content .= 'active show" aria-expanded="true"';
-				++$tab_first;
+				$tab_first = '1';
 			} elseif ( $tab_first !== '0' ){
 				$tab_content .= '" aria-expanded="false"';
 			}
