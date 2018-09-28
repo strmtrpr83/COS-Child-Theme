@@ -197,6 +197,7 @@ function cos_child_theme_customize_register( $wp_customize ) {
          
     }
 
+
 }
 
 // *********************************************
@@ -295,13 +296,13 @@ function get_person_tabs_markup( $post ) {
 				if ( $tab_first === '0' ){
 					$tab_nav .= 'active';
 					$tab_content .= 'active show" aria-expanded="true"';
-          $tab_first = '1';
 				} elseif ( $tab_first !== '0' ){
 					$tab_content .= '" aria-expanded="false"';
 				}
 				$tab_nav .= '" href="#'.$tab_anchor.'" data-toggle="tab" role="tab" aria-controls="'.$tab_anchor.'">'.$tab_title.'</a></li>';
 				$tab_content .= ' role="tabpanel" id="'.$tab_anchor.'" ><h3>'.$tab_title.'</h3>'.get_sub_field('person_tab_content').'</div>';
 			endif;							
+			++$tab_first;
 
 		endwhile;
 
@@ -320,19 +321,10 @@ function get_person_tabs_markup( $post ) {
 		$news_articles = do_shortcode( '[ucf-news-feed limit="3" layout="modern" title="" topics="'.$news_slug.'"]') ; 
 		// If articles are returned
 		if ( !empty($news_articles) && $news_articles !== 'There are no news stories at this time.' ){
-			$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill ';
-			$tab_content .= '<div class="tab-pane fade ';
-      
-      if ( $tab_first === '0' ){
-        $tab_nav .= 'active';
-        $tab_content .= 'active show" aria-expanded="true"';
-        $tab_first = '1';
-      } elseif ( $tab_first !== '0' ){
-        $tab_content .= '" aria-expanded="false"';
-      }
-      
-			$tab_nav .= '" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';	
-			$tab_content .= ' role="tabpanel" id="news" aria-expanded="false"><h3>In the News</h3>'.$news_articles.'</div>';
+			
+			$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';	
+
+			$tab_content .= '<div class="tab-pane fade " role="tabpanel" id="news" aria-expanded="false"><h3>In the News</h3>'.$news_articles.'</div>';
 		}
 	}
 
@@ -358,7 +350,7 @@ function get_person_tabs_markup( $post ) {
 			if ( $tab_first === '0' ){
 				$tab_nav .= 'active';
 				$tab_content .= 'active show" aria-expanded="true"';
-				$tab_first = '1';
+				++$tab_first;
 			} elseif ( $tab_first !== '0' ){
 				$tab_content .= '" aria-expanded="false"';
 			}
@@ -399,16 +391,172 @@ function get_person_tabs_markup( $post ) {
 			if ( $tab_first === '0' ){
 				$tab_nav .= 'active';
 				$tab_content .= 'active show" aria-expanded="true"';
-				$tab_first = '1';
+				++$tab_first;
 			} elseif ( $tab_first !== '0' ){
 				$tab_content .= '" aria-expanded="false"';
 			}
 			$tab_nav .= '" href="#office_hours" data-toggle="tab" role="tab" aria-controls="office_hours">Office Hours</a></li>';
 			$tab_content .= ' role="tabpanel" id="office_hours" ><h3>Office Hours</h3><div class="col-sm-12 person-label">Office hours are by appointment only</div></div>';	
 	}
-	?>
+	if (!empty($tab_nav) && !empty($tab_content) ){
+		?>
 		<ul class="nav nav-tabs flex-column flex-sm-row" role="tablist"><?php echo $tab_nav; ?></ul>
 		<div class="tab-content "><?php echo $tab_content; ?></div>
-	<?php 
+		<?php 
+	}
 	return ob_get_clean();
 }
+
+/**
+ * Display individual cos_courses CPT entries for a specific taxonomy .
+ * For use on single-person.php
+ *
+ * @author Jonathan Hendricker
+ * @since 1.0.0
+ * @param $post object | Person post object
+ * @return Mixed | Grid and contact info HTML or void
+ **/
+function cos_show_courses( $post, $atts ){
+	if ( $post->post_type !== 'cos_course' ) { return; }
+
+	$courseCat = shortcode_atts( array(
+	  'level' => 'all'
+	), $atts );
+
+	$taxonomy = $courseCat['level']; 
+
+	if( $taxonomy != 'all' ){  
+
+		$taxonomyArgs = array( 
+		  'posts_per_page' 	=> -1,
+		  'post_type' 		=> 'cos_course',
+		  'tax_query' 		=> array(
+		    array(
+		      'taxonomy' 	=> 'cos_course_tax',
+		      'field' 		=> 'slug',
+		      'terms' 		=> $taxonomy,          
+		      'include_children' => FALSE, 
+		    )
+		  ),
+		  'orderby' => 'title',
+		  'order'   => 'ASC',
+		);
+	} else {
+		$taxonomyArgs = array( 
+		  'post_type'       => 'cos_course',
+		  'posts_per_page'  => -1,
+		  'orderby'         => 'title',
+		  'order'           => 'ASC',
+		);
+	}
+
+	$stuff_to_return = "";
+
+	$my_query = new WP_Query($taxonomyArgs);
+
+	if($my_query->have_posts()) : 
+
+	$multiple_prefix = "";
+	$previous_prefix = "";  
+
+	$stuff_to_return .= "<div class='row'>";
+	$num_posts = $my_query->found_posts;
+
+	$stuff_to_return .= "<div class='col-12 col-sm-6'>";
+	$cur_post = 0; 
+
+	while ($my_query->have_posts()) : $my_query->the_post();      
+	  
+		$thisID = get_the_ID();
+
+		$course_prefix 	= get_field("crs_prefix");
+		$course_number 	= get_field("crs_number");
+		$course_title 	= get_field("crs_title");
+		$course_link 	= get_permalink();
+
+		if( $cur_post == (int)($num_posts/2) && $num_posts > 10 ) {
+			$stuff_to_return .= "</div><div class='col-12 col-sm-6'>";
+
+			if ( $course_prefix === $previous_prefix && $multiple_prefix === '1')
+				$stuff_to_return .= "<h3>$course_prefix (continued)</h3>";
+			elseif ($multiple_prefix === '1')
+				$stuff_to_return .= "<h3>$course_prefix</h3>";
+			else
+				$stuff_to_return .= "<h3>&nbsp;</h3>";
+		}
+
+		if($course_prefix !== $previous_prefix && $previous_prefix !== ""){
+			$multiple_prefix = "1";
+			$stuff_to_return .= "<br/><h3>$course_prefix</h3>";
+		}
+		elseif($previous_prefix === "")
+		$stuff_to_return .= "<h3>$course_prefix</h3>";
+
+
+		$stuff_to_return .=  "<p class='lead'><a href='$course_link'>$course_prefix $course_number: $course_title</a></p>";
+
+		$previous_prefix = $course_prefix; 
+		$cur_post++; 
+	endwhile; 
+
+	if($previous_prefix !== "") $stuff_to_return .= "";
+
+	$stuff_to_return .= "</div>"; 
+
+	else:
+		$stuff_to_return .= "<h4>There are no courses active for this prefix. Please refer to the UCF Course Catalog for more information</h4>";
+	endif; wp_reset_query();
+
+	return $stuff_to_return;
+
+}
+add_shortcode( 'cos_show_courses', 'cos_show_courses' );
+
+
+// ***************************
+// * Dashboard Cusomtization 
+// ***************************
+// Change Log-In Screen Logo
+function my_custom_login_logo() { ?>
+    <style type="text/css">
+        body.login div#login h1 a { 
+        	background-image: url('<?php echo get_stylesheet_directory(); ?>/static/img/logo2018.png');
+        	width: 283px; 
+        	height: 77px; 
+        	background-size: cover; }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', 'my_custom_login_logo');
+
+// Change Log-In Screen Logo URL
+function put_my_url(){
+	// putting my URL in place of the WordPress one
+	return ('https://sciences.ucf.edu'); 
+}
+add_filter('login_headerurl', 'put_my_url');
+
+// Change Log-In Screen Logo Hover State
+function put_my_title(){
+    // Change the title from "Powered by WordPress"
+    return ('College of Sciences');     
+}
+add_filter('login_headertitle', 'put_my_title');
+
+
+/**
+ * Change 'Username or Email' login text to 'UCF NID'
+ **/
+add_filter(  'gettext',  'register_text'  );
+add_filter( 'gettext', 'remove_lostpassword_text' );
+
+function register_text( $translated ) {
+     $translated = str_ireplace(  'Username or Email Address',  'UCF NID Credentials (No @ucf.edu)',  $translated );
+     return $translated;
+}
+/**
+ * Remove the 'Lost your password?' option
+ */
+function remove_lostpassword_text ( $text ) {
+     if ($text === 'Lost your password?'){$text = '';}
+            return $text;
+ }
