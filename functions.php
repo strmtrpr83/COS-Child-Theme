@@ -416,14 +416,13 @@ function get_person_tabs_markup( $post ) {
  * @param $post object | Person post object
  * @return Mixed | Grid and contact info HTML or void
  **/
-function cos_show_courses( $post, $atts ){
-	if ( $post->post_type !== 'cos_course' ) { return; }
+function cos_show_courses( $atts ){
 
 	$courseCat = shortcode_atts( array(
 	  'level' => 'all'
 	), $atts );
 
-	$taxonomy = $courseCat['level']; 
+	$taxonomy = $courseCat['level']; 	
 
 	if( $taxonomy != 'all' ){  
 
@@ -440,8 +439,8 @@ function cos_show_courses( $post, $atts ){
 		  ),
 		  'orderby' => 'title',
 		  'order'   => 'ASC',
-		);
-	} else {
+		);		
+	} else {		
 		$taxonomyArgs = array( 
 		  'post_type'       => 'cos_course',
 		  'posts_per_page'  => -1,
@@ -456,52 +455,52 @@ function cos_show_courses( $post, $atts ){
 
 	if($my_query->have_posts()) : 
 
-	$multiple_prefix = "";
-	$previous_prefix = "";  
+		$multiple_prefix = "";
+		$previous_prefix = "";  
 
-	$stuff_to_return .= "<div class='row'>";
-	$num_posts = $my_query->found_posts;
+		$stuff_to_return .= "<div class='row'>";
+		$num_posts = $my_query->found_posts;
 
-	$stuff_to_return .= "<div class='col-12 col-sm-6'>";
-	$cur_post = 0; 
+		$stuff_to_return .= "<div class='col-12 col-sm-6'>";
+		$cur_post = 0; 
 
-	while ($my_query->have_posts()) : $my_query->the_post();      
-	  
-		$thisID = get_the_ID();
+		while ($my_query->have_posts()) : $my_query->the_post();      
+		  
+			$thisID = get_the_ID();
 
-		$course_prefix 	= get_field("crs_prefix");
-		$course_number 	= get_field("crs_number");
-		$course_title 	= get_field("crs_title");
-		$course_link 	= get_permalink();
+			$course_prefix 	= get_field("crs_prefix");
+			$course_number 	= get_field("crs_number");
+			$course_title 	= get_field("crs_title");
+			$course_link 	= get_permalink();
 
-		if( $cur_post == (int)($num_posts/2) && $num_posts > 10 ) {
-			$stuff_to_return .= "</div><div class='col-12 col-sm-6'>";
+			if( $cur_post == (int)($num_posts/2) && $num_posts > 10 ) {
+				$stuff_to_return .= "</div><div class='col-12 col-sm-6'>";
 
-			if ( $course_prefix === $previous_prefix && $multiple_prefix === '1')
-				$stuff_to_return .= "<h3>$course_prefix (continued)</h3>";
-			elseif ($multiple_prefix === '1')
-				$stuff_to_return .= "<h3>$course_prefix</h3>";
-			else
-				$stuff_to_return .= "<h3>&nbsp;</h3>";
-		}
+				if ( $course_prefix === $previous_prefix && $multiple_prefix === '1')
+					$stuff_to_return .= "<h3>$course_prefix (continued)</h3>";
+				elseif ($multiple_prefix === '1')
+					$stuff_to_return .= "<h3>$course_prefix</h3>";
+				else
+					$stuff_to_return .= "<h3>&nbsp;</h3>";
+			}
 
-		if($course_prefix !== $previous_prefix && $previous_prefix !== ""){
-			$multiple_prefix = "1";
-			$stuff_to_return .= "<br/><h3>$course_prefix</h3>";
-		}
-		elseif($previous_prefix === "")
-		$stuff_to_return .= "<h3>$course_prefix</h3>";
+			if($course_prefix !== $previous_prefix && $previous_prefix !== ""){
+				$multiple_prefix = "1";
+				$stuff_to_return .= "<br/><h3>$course_prefix</h3>";
+			}
+			elseif($previous_prefix === "")
+			$stuff_to_return .= "<h3>$course_prefix</h3>";
 
 
-		$stuff_to_return .=  "<p class='lead'><a href='$course_link'>$course_prefix $course_number: $course_title</a></p>";
+			$stuff_to_return .=  "<p class='lead'><a href='$course_link'>$course_prefix $course_number: $course_title</a></p>";
 
-		$previous_prefix = $course_prefix; 
-		$cur_post++; 
-	endwhile; 
+			$previous_prefix = $course_prefix; 
+			$cur_post++; 
+		endwhile; 
 
-	if($previous_prefix !== "") $stuff_to_return .= "";
+		if($previous_prefix !== "") $stuff_to_return .= "";
 
-	$stuff_to_return .= "</div>"; 
+		$stuff_to_return .= "</div>"; 
 
 	else:
 		$stuff_to_return .= "<h4>There are no courses active for this prefix. Please refer to the UCF Course Catalog for more information</h4>";
@@ -546,7 +545,7 @@ add_filter('login_headertitle', 'put_my_title');
 /**
  * Change 'Username or Email' login text to 'UCF NID'
  **/
-add_filter(  'gettext',  'register_text'  );
+add_filter( 'gettext', 'register_text'  );
 add_filter( 'gettext', 'remove_lostpassword_text' );
 
 function register_text( $translated ) {
