@@ -512,6 +512,100 @@ function cos_show_courses( $atts ){
 add_shortcode( 'cos_show_courses', 'cos_show_courses' );
 
 
+/**
+ * Shortcode for displaying a search field to search for Posts from multiple Categories and Tags
+ * For use on single-person.php
+ *
+ * @author Jonathan Hendricker
+ * @since 1.0.0
+ * @param $atts 
+ * @return Mixed | Dropdown list of current categories or tags or void
+ **/
+function cos_display_category_tag_content($atts){
+
+  $baseURL = get_site_url();
+
+  ob_start(); 
+
+  ?>
+  <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_directory_uri(); ?>/static/css/sumoselect.min.css" media="all">
+  <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/static/js/jquery.sumoselect.min.js"></script>
+  <script type="text/javascript">
+      jQuery(document).ready(function ($) {
+          window.asd = $('.SlectBox').SumoSelect({ csvDispCount: 3 });
+      
+          $("#form_submit").click(function(){
+            var baseURL = "<?php echo $baseURL; ?>/";
+            var iccaeCats = $("#iccae-categories").val();
+            var iccaeTags = $("#iccae-tags").val();
+
+            if((iccaeCats != null) && (iccaeCats.length)){
+              iccaeCats = iccaeCats.toString().replace(",", "+");
+              baseURL = baseURL + "category/" + iccaeCats + "/";
+            }
+            if((iccaeTags != null) && (iccaeTags.length)){
+              iccaeTags = iccaeTags.toString().replace(",", ",");
+              baseURL = baseURL + "?tag=" + iccaeTags + "/";
+            }
+
+            window.location.href = baseURL;
+                        
+          });
+
+      });
+  </script>
+  
+	<div class="row mb-4">
+	<?php 			
+		$categories = get_categories();
+
+		if(!empty($categories)):
+	?>
+		<div class=" col-12 col-sm-6">
+			<label class="col-form-label d-block">Select Your Categories:</label>
+			<select name="iccae-categories[]" id="iccae-categories" class="SlectBox" multiple="multiple"> 
+			<?php 
+				 
+				foreach ($categories as $category) {
+				  $option = '<option value="'.$category->slug.'">';
+				  $option .= $category->cat_name;
+				  $option .= ' ('.$category->category_count.')';
+				  $option .= '</option>';
+				echo $option;
+			}
+			?>
+			</select>
+    	</div>
+  	<?php  
+  		endif;
+
+  		$tags = get_tags();   
+
+    	if( !empty($tags) ):
+    ?>
+    	<div class=" col-12 col-sm-6">
+    		<label class="col-form-label d-block">Select Your Tags (Optional):</label> 
+    		<select name='iccae-tags' id="iccae-tags" class="SlectBox" multiple="multiple" >
+			<?php 
+			foreach( $tags as $tag) {
+			  $slug = $tag->slug;
+			  echo "<option  value='".$tag->slug."'>".$tag->name."</option>";
+			}
+			?></select>
+		</div>
+		<?php endif; ?>
+	</div>
+
+  	<input type="submit" value="Submit" id="form_submit" class="btn btn-primary" />
+
+	<?php
+
+	return ob_get_clean();
+  
+}
+add_shortcode('cos-category-and-tags', 'cos_display_category_tag_content');
+
+
 // ***************************
 // * Dashboard Cusomtization 
 // ***************************
