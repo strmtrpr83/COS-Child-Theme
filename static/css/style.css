@@ -38,6 +38,11 @@
 @media (max-width: 575px){
 .site-navbar .navbar-brand {
     font-size: 1.25rem;
+    max-width: 350px;
+  }
+}
+@media (max-width: 325px){
+.site-navbar .navbar-brand {
     max-width: 180px;
   }
 }
