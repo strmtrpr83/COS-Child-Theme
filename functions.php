@@ -512,6 +512,40 @@ function cos_show_courses( $atts ){
 add_shortcode( 'cos_show_courses', 'cos_show_courses' );
 
 
+/** Add custom image size for People CPT for better efficiency in the event people upload large images **/
+add_image_size( 'person-headshot', 300, 350, array( 'left', 'top' ) );
+
+/**
+ * Overriding the default get_person_thumbnail function that displays a person's thumbnail image.
+ *
+ * @author Jo Dickson | Mod: Jonathan Hendricker
+ * @since 1.0.0
+ * @param $post object | Person post object
+ * @param $css_classes str | Additional classes to add to the thumbnail wrapper
+ * @return Mixed | thumbnail HTML or void
+ **/
+function get_person_thumbnail_medium( $post, $css_classes='' ) {
+
+	if ( !$post->post_type == 'person' ) { return; }
+
+	$thumbnail = get_the_post_thumbnail_url( $post, 'person-headshot' ) ?: get_theme_mod_or_default( 'person_thumbnail' );
+	// Account for attachment ID being returned by get_theme_mod_or_default():
+	if ( is_numeric( $thumbnail ) ) {		
+		$thumbnail = wp_get_attachment_url( $thumbnail );
+	}
+
+	ob_start();
+	if ( $thumbnail ):
+?>
+	<div class="media-background-container person-photo mx-auto <?php echo $css_classes; ?>">
+		<img src="<?php echo $thumbnail; ?>" alt="<?php $post->post_title; ?>" title="<?php $post->post_title; ?>" class="media-background object-fit-cover">
+	</div>
+<?php
+	endif;
+	return ob_get_clean();
+}
+
+
 /**
  * Shortcode for displaying a search field to search for Posts from multiple Categories and Tags
  * For use on single-person.php
