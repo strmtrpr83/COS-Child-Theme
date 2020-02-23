@@ -8,7 +8,7 @@
 				<aside class="person-contact-container">
 
 					<div class="mb-4">
-						<?php echo get_person_thumbnail( $post, 'rounded-circle' ); ?>
+						<?php echo get_person_thumbnail_medium( $post, 'rounded-circle' ); ?>
 					</div>
 
 					<h1 class="h5 person-title text-center mb-2">
