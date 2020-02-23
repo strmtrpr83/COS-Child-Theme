@@ -536,10 +536,6 @@ function get_person_thumbnail_medium( $post, $css_classes='' ) {
 
 	ob_start();
 	if ( $thumbnail ):
-<<<<<<< HEAD
-=======
-		echo "<h3>The thumbnail is $thumbnail</h3>";
->>>>>>> 47cbdceff395ab2dfade015f38b9648053947a23
 ?>
 	<div class="media-background-container person-photo mx-auto <?php echo $css_classes; ?>">
 		<img src="<?php echo $thumbnail; ?>" alt="<?php $post->post_title; ?>" title="<?php $post->post_title; ?>" class="media-background object-fit-cover">
