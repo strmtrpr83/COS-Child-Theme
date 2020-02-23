@@ -545,6 +545,47 @@ function get_person_thumbnail_medium( $post, $css_classes='' ) {
 	return ob_get_clean();
 }
 
+/**
+ * Removing the default 'ucf_post_list_display_people' filter
+ * and replacing it with a new one that uses a new custom 
+ * image size for more efficiency and faster loading
+ **/
+// Remove the old filter first
+function remove_parent_filters(){ 
+	remove_filter( 'ucf_post_list_display_people', 'colleges_post_list_display_people');
+}
+add_action( 'after_setup_theme', 'remove_parent_filters' );
+
+// Redefine the function with the new image size
+function colleges_post_list_display_people_modded( $content, $items, $atts ) {
+	if ( ! is_array( $items ) && $items !== false ) { $items = array( $items ); }
+	ob_start();
+?>
+	<?php if ( $items ): ?>
+	<ul class="list-unstyled row ucf-post-list-items">
+		<?php foreach ( $items as $item ): ?>
+		<li class="col-6 col-sm-4 col-md-3 col-xl-2 mt-3 mb-2 ucf-post-list-item">
+			<a class="person-link" href="<?php echo get_permalink( $item->ID ); ?>">
+				<?php echo get_person_thumbnail_medium( $item ); ?>
+				<h3 class="mt-2 mb-1 person-name"><?php echo get_person_name( $item ); ?></h3>
+				<?php if ( $job_title = get_field( 'person_jobtitle', $item->ID ) ): ?>
+				<div class="font-italic person-job-title">
+					<?php echo $job_title; ?>
+				</div>
+				<?php endif; ?>
+			</a>
+		</li>
+		<?php endforeach; ?>
+	</ul>
+	<?php else: ?>
+	<div class="ucf-post-list-error mb-4">No results found.</div>
+	<?php endif; ?>
+<?php
+	return ob_get_clean();
+}
+
+add_filter( 'ucf_post_list_display_people', 'colleges_post_list_display_people_modded', 10, 3 );
+
 
 /**
  * Shortcode for displaying a search field to search for Posts from multiple Categories and Tags
