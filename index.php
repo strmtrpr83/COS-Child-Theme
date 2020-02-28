@@ -1,8 +1,8 @@
 <?php get_header(); ?>
 
-<?php while ( have_posts() ) : the_post(); ?>
 <div class="container mt-3 mt-sm-4 mt-md-5 mb-5">
-	<article class="<?php echo $post->post_status; ?> post-list-item">
+	<?php while ( have_posts() ) : the_post(); ?>
+	<article class="<?php echo $post->post_status; ?> post-list-item pt-2 pb-2">
 		<h2 class="mb-3">
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		</h2>
@@ -26,16 +26,31 @@
 		<div class="categories-tags">
 			<?php 
 				if ( count( get_the_category() ) )
-					echo "Categories: ".get_the_category_list(' ')." ";
+					echo "<span class='post-categories'>Categories: ".get_the_category_list(' ')."</span>";
 				
 				$tag_list = "";
 				$tag_list = get_the_tag_list( '', ' ' );
 				if ( $tag_list )
-					echo "Tags: $tag_list";
+					echo "<span class='post-tags'>Tags: $tag_list</span>";
 			?>
 		</div>
 	</article>
+	<hr class="col-7">
+	<?php endwhile; ?>
+	<?php 
+		$args = array(
+			'mid_size'  => 1,
+			'prev_next' => true,
+			'prev_text' => 'Previous',
+			'next_text' => 'Next',
+			'type'      => 'plain',
+			'screen_reader_text' => __( 'Posts navigation' ),
+		);
+		// Generate paginated link markup
+		$links = paginate_links( $args );
+
+		if( $links ) echo $links;
+	?>
 </div>
-<?php endwhile; ?>
 
 <?php get_footer(); ?>
