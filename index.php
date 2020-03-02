@@ -2,7 +2,7 @@
 
 <div class="container mt-3 mt-sm-4 mt-md-5 mb-5">
 	<?php while ( have_posts() ) : the_post(); ?>
-	<article class="<?php echo $post->post_status; ?> post-list-item pt-2 pb-2">
+	<article class="<?php echo $post->post_status; ?> post-list-item pt-3 pb-3">
 		<h2 class="mb-3">
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 		</h2>
