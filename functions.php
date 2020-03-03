@@ -5,16 +5,39 @@
  * @package WordPress
  */
 
-// ************************
-// * Register Footer Menu
-// ************************
+/**
+ * Register Footer Menu
+ *
+ * @author Jonathan Hendricker
+ **/
 function register_footer_menu(){
 	register_nav_menu( 'footer-menu', __( 'Footer Menu' ));
 }
 add_action('init', 'register_footer_menu');
 
+
+/**
+ * Update the default thumbnail image to crop from top left.
+ *
+ * @since 1.0.11
+ * @author Jonathan Hendricker
+ **/
+update_option( 'thumbnail_crop', array('left','top') );
+
+
+/** 
+ * Add custom image size for People CPT for better 
+ * efficiency in the event people upload large images 
+ *
+ * @author Jonathan Hendricker
+ **/
+add_image_size( 'person-headshot', 300, 350, array( 'left', 'top' ) );
+
+
 /**
  * Display college address information
+ *
+ * @author Jonathan Hendricker
  **/
 function get_contact_address_markup_child() {
 	$address = get_theme_mod( 'organization_address' );
@@ -30,8 +53,11 @@ function get_contact_address_markup_child() {
 	return;
 }
 
+
 /**
  * Display the footer information that's either College or Dept
+ *
+ * @author Jonathan Hendricker
  **/
 function get_cos_footer_content() {
 
@@ -143,13 +169,13 @@ function get_cos_footer_content() {
 		<?php 
 		return ob_get_clean();
 	}
-
 	return;
-
 }
 
 /**
  * Customizer Options
+ *
+ * @author Jonathan Hendricker
  **/
 add_action( 'customize_register', 'cos_child_theme_customize_register');
 function cos_child_theme_customize_register( $wp_customize ) {
@@ -157,7 +183,6 @@ function cos_child_theme_customize_register( $wp_customize ) {
 	    'cos_child_theme_footer_options', 
 	    array(
 	        'title'       => __( 'Footer Options', 'COS-Child-Theme' ), 
-	        //'priority'    => 6, 
 	        'description' => __( 'Select the type of footer you would like to use for this website. An example of the College footer can be found on <a href="https://sciences.ucf.edu" target="_blank">sciences.ucf.edu</a>, COS Department footer at <a href="https://sciences.ucf.edu/statistics" target="_blank">sciences.ucf.edu/statistics</a> and the Faculty / Other footer at <a href="https://sciences.ucf.edu/geeo" target="_blank">sciences.ucf.edu/geeo</a>' ),
 	        'capability'  => 'edit_theme_options',
 	    ) 
@@ -194,15 +219,15 @@ function cos_child_theme_customize_register( $wp_customize ) {
                          
         //return input if valid or return default option
         return ( array_key_exists( $input, $choices ) ? $input : $setting->default );                
-         
     }
-
-
 }
 
-// *********************************************
-// * Enqueue Parent and Child theme styles
-// *********************************************
+
+/**
+ * Enqueue Parent and Child theme styles
+ *
+ * @author Jonathan Hendricker
+ **/
 function my_theme_enqueue_styles() {
     // Parent theme name
     $parent_style = 'Colleges-Theme-master'; 
@@ -218,9 +243,11 @@ function my_theme_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
-// *********************************************
-// * Re-Enqueue Parent Scripts
-// *********************************************
+/**
+ * Re-Enqueue Parent Scripts
+ * 
+ * @author Jonathan Hendricker
+ **/
 function themeslug_enqueue_script() { 
 	// Re-enqueue the tether script because it's a dependency in the parent theme script below
 	wp_enqueue_script( 'tether', 'https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js', null, null, true );
@@ -512,9 +539,6 @@ function cos_show_courses( $atts ){
 add_shortcode( 'cos_show_courses', 'cos_show_courses' );
 
 
-/** Add custom image size for People CPT for better efficiency in the event people upload large images **/
-add_image_size( 'person-headshot', 300, 350, array( 'left', 'top' ) );
-
 /**
  * Overriding the default get_person_thumbnail function that displays a person's thumbnail image.
  *
@@ -549,6 +573,9 @@ function get_person_thumbnail_medium( $post, $css_classes='' ) {
  * Removing the default 'ucf_post_list_display_people' filter
  * and replacing it with a new one that uses a new custom 
  * image size for more efficiency and faster loading
+ *
+ * @author Jonathan Hendricker
+ * @since 1.0.9
  **/
 // Remove the old filter first
 function remove_parent_filters(){ 
@@ -583,7 +610,6 @@ function colleges_post_list_display_people_modded( $content, $items, $atts ) {
 <?php
 	return ob_get_clean();
 }
-
 add_filter( 'ucf_post_list_display_people', 'colleges_post_list_display_people_modded', 10, 3 );
 
 
@@ -681,9 +707,9 @@ function cos_display_category_tag_content($atts){
 add_shortcode('cos-category-and-tags', 'cos_display_category_tag_content');
 
 
-// ***************************
-// * Dashboard Cusomtization 
-// ***************************
+/**
+ * Dashboard Cusomtizations 
+ **/
 // Change Log-In Screen Logo
 function my_custom_login_logo() { ?>
     <style type="text/css">
