@@ -749,8 +749,26 @@ function register_text( $translated ) {
 }
 /**
  * Remove the 'Lost your password?' option
- */
+ **/
 function remove_lostpassword_text ( $text ) {
      if ($text === 'Lost your password?'){$text = '';}
             return $text;
  }
+
+ /**
+  * Allow Feedzy Pro plugin to link imported  
+  * articles to their original sources
+  *
+  * @author Jonathan Hendricker (Original Author Feedzy Pro)
+  * @since 1.0.12
+  **/
+ add_filter('post_link', function( $url, $id ){
+
+    $feed_url = get_post_meta( $id->ID, 'feedzy_item_url', true );
+
+    if ( !empty( $feed_url) )
+        $url = $feed_url;
+
+    return $url;
+
+}, 99, 2);
