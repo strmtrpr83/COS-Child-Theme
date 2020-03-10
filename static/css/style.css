@@ -5,7 +5,7 @@
 *	Author: Jonathan Hendricker
 *	Author URI: 
 *	Template: Colleges-Theme-master
-*	Version: 1.0.12
+*	Version: 1.0.13
 *   Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
 **/
 
@@ -109,6 +109,16 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
 /*************/
 .welcome-text {
 	font-size: 18px;
+}
+.alert{
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.alert .lead {
+  font-size: 1.4rem;
+}
+.alert strong { 
+  font-weight: 700;
 }
 
 /******************/
