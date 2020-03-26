@@ -1,4 +1,6 @@
 <?php
+include_once 'includes/child-header-functions.php';
+
 /**
  * Functions and definitions
  *

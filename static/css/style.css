@@ -5,7 +5,7 @@
 *	Author: Jonathan Hendricker
 *	Author URI: 
 *	Template: Colleges-Theme-master
-*	Version: 1.0.13
+*	Version: 1.0.14
 *   Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
 **/
 
@@ -270,6 +270,10 @@ input {
   margin-top: 0.5rem;
 }
 .post-categories a, .post-tags a {
+  margin-right: 0.25rem;
+}
+.post-categories a:first-of-type, 
+.post-tags a:first-of-type {
   margin-left: 0.25rem;
 }
 .post-categories a:last-of-type{
@@ -545,6 +549,7 @@ h3.heading-underline {
 /*********************/
 .categories-tags {
   font-size: 0.9rem;
+  margin-top: 1rem;
 }
 .categories-tags a{
   letter-spacing: .1em;
@@ -556,6 +561,7 @@ h3.heading-underline {
   background-color: #ffc904;
   display: inline-block;
   padding: .35em .8em;
+  margin-bottom: .5em;
   font-size: 85%;
   line-height: 1;
 }
@@ -565,7 +571,9 @@ h3.heading-underline {
   text-transform: uppercase;
   font-weight: 400;
 }
-
+article:last-of-type + hr{
+  display:none;
+}
 
 /***************/
 /* Site Footer */
