@@ -574,6 +574,9 @@ h3.heading-underline {
 article:last-of-type + hr{
   display:none;
 }
+.lead + article {
+  padding-top: 0 !important;
+}
 
 /***************/
 /* Site Footer */

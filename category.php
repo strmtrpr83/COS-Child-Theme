@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 
-<div class="container mt-3 mt-sm-4 mt-md-5 mb-5">
-	<?php the_archive_description( '<div class="lead mb-4">', '</div>' ); ?>
+<div class="container mt-4 mt-sm-4 mt-md-5 mb-5">
+	<?php the_archive_description( '<div class="lead mb-4 mb-sm-4 mb-md-5">', '</div>' ); ?>
 	<?php while ( have_posts() ) : the_post(); ?>
 	<article class="<?php echo $post->post_status; ?> post-list-item pt-2 pb-2">
 		<h3 class="mb-2">
