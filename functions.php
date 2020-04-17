@@ -211,6 +211,32 @@ function cos_child_theme_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Creates a Gravity Forms section that has a checkbox to allow Gravity Form entries to be saved in the DB
+	$wp_customize->add_section( 
+	    'cos_child_theme_gravity_form_dont_save_entries', 
+	    array(
+	        'title'       => __( 'Gravity Forms', 'COS-Child-Theme' ), 
+	        'description' => __( 'The College of Sciences&#39; hosting agreement prevents the storing of sensitive information on the SMCA servers. <strong>By default, all Gravity Forms entries will be deleted after processing</strong>.<br/><br/>To override this setting, please check the box below. Only check this box if you will NOT be storing sensitive information on the server, including but not limited to student email addresses.<br/><br/><strong>Any public facing form with an email field could potentially breach this agreement</strong>.' ),
+	        'capability'  => 'edit_theme_options',
+	    ) 
+	);
+	$wp_customize->add_setting(	'cos_child_gravity_save_entries',
+		array(
+			'default' => 0,
+			'transport'	=> 'refresh',
+			'sanitize_callback' => 'cos_child_theme_sanitize_checkbox'
+		)
+	);
+	$wp_customize->add_control( 'cos_child_gravity_save_entries', 
+		array(
+			'label' 			=> __( 'Save Entries Upon Submission' ),			
+			'section' 			=> 'cos_child_theme_gravity_form_dont_save_entries', 
+			'type' 				=> 'checkbox',
+			'capability' 		=> 'edit_theme_options',			
+		)
+	);
+
+
 	function cos_child_theme_sanitize_radio( $input, $setting ){
      
         //input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
@@ -222,8 +248,31 @@ function cos_child_theme_customize_register( $wp_customize ) {
         //return input if valid or return default option
         return ( array_key_exists( $input, $choices ) ? $input : $setting->default );                
     }
+
+    function cos_child_theme_sanitize_checkbox( $input ) {
+	   
+    	return ( true === $input ? 1 : 0 );
+
+	}
 }
 
+
+/**
+ * Disable the storing of Gravity Form entries in the database
+ *
+ *@author Jonathan Hendricker
+ *
+ **/
+add_action( 'gform_after_submission', 'cos_child_remove_gf_form_entry', 100, 1 );
+function cos_child_remove_gf_form_entry( $entry ) {
+	// Get value from the theme customizer
+	$save_gf_entries = get_theme_mod( 'cos_child_gravity_save_entries' );
+
+	// If not checked, delete the entry
+	if ( $save_gf_entries !== 1 ){
+		GFAPI::delete_entry( $entry['id'] );
+	}
+}
 
 /**
  * Enqueue Parent and Child theme styles
