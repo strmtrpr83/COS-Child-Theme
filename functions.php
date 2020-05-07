@@ -824,16 +824,3 @@ function remove_lostpassword_text ( $text ) {
 
 }, 99, 2);
 
-
- /**
-  * Allow the upload of .docm Word Documents  
-  *
-  * @author Jonathan Hendricker (Original Author Feedzy Pro)
-  * @since 1.0.18
-  **/
-function cos_myme_types($mime_types){
-    $mime_types['docm'] = 'application/vnd.ms-word.document.macroEnabled.12'; 
-    $mime_types['dotm'] = 'application/vnd.ms-word.template.macroEnabled.12'; 
-    return $mime_types;
-}
-add_filter('upload_mimes', 'cos_myme_types', 1, 1);
