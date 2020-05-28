@@ -281,7 +281,7 @@ function cos_child_remove_gf_form_entry( $entry ) {
  **/
 function my_theme_enqueue_styles() {
     // Parent theme name
-    $parent_style = 'Colleges-Theme-master'; 
+    $parent_style = 'Colleges-Theme'; 
 
     // Enqueue Parent Theme Style
     wp_enqueue_style( $parent_style, get_template_directory_uri() . '/static/css/style.min.css' );
