@@ -236,6 +236,31 @@ function cos_child_theme_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Creates a Posts section that has a checkbox to allow individual post pages to display the featured image in the page in addition to the_content()
+	$wp_customize->add_section( 
+	    'cos_child_theme_display_posts_options', 
+	    array(
+	        'title'       => __( 'Post Options', 'COS-Child-Theme' ), 	        
+	        'capability'  => 'edit_theme_options',
+	    ) 
+	);
+	$wp_customize->add_setting(	'cos_child_show_post_featured_image',
+		array(
+			'default' => 0,
+			'transport'	=> 'refresh',
+			'sanitize_callback' => 'cos_child_theme_sanitize_checkbox'
+		)
+	);
+	$wp_customize->add_control( 'cos_child_show_post_featured_image', 
+		array(
+			'type' 				=> 'checkbox',
+			'label' 			=> __( 'Display a Post&#39;s Featured Image' ),
+			'description' => __( 'Option to display a post&#39;s featured image at the beginning of the post before the post content.' ),			
+			'section' 			=> 'cos_child_theme_display_posts_options', 			
+			'capability' 		=> 'edit_theme_options',			
+		)
+	);
+
 
 	function cos_child_theme_sanitize_radio( $input, $setting ){
      
