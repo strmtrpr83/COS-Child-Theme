@@ -430,6 +430,7 @@ function get_person_tabs_markup( $post ) {
 			if ( $tab_first === '0' ){
 				$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill active" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';	
 				$tab_content .= '<div class="tab-pane fade active show" role="tabpanel" id="news" aria-expanded="true"><h3>In the News</h3>'.$news_articles.'</div>';
+				++$tab_first;
 			} elseif ( $tab_first !== '0' ){
 				$tab_nav .= '<li class="nav-item"><a class="nav-link flex-sm-fill" href="#news" data-toggle="tab" role="tab" aria-controls="news">News</a></li>';
 				$tab_content .= '<div class="tab-pane fade " role="tabpanel" id="news" aria-expanded="false"><h3>In the News</h3>'.$news_articles.'</div>';
