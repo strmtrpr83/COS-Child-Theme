@@ -4,8 +4,8 @@
 *	Description: A child theme for the College of Sciences website based off the UCF Colleges Theme. 
 *	Author: Jonathan Hendricker
 *	Author URI: 
-*	Template: Colleges-Theme-master
-*	Version: 1.0.21
+*	Template: Colleges-Theme
+*	Version: 1.0.22
 *   Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
 **/
 
@@ -199,6 +199,9 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
 .featured-news-home h5 a {
 	font-size: 20px;
 	color: #000000;
+}
+.ucf-news.modern .ucf-news-item {
+  margin-bottom: 0;
 }
 .ucf-news.modern .ucf-news-item-content {
   width: 72%;
