@@ -797,9 +797,9 @@ add_shortcode('cos-category-and-tags', 'cos_display_category_tag_content');
 function my_custom_login_logo() { ?>
     <style type="text/css">
         body.login div#login h1 a { 
-        	background-image: url('<?php echo get_stylesheet_directory(); ?>/static/img/logo2018.png');
-        	width: 283px; 
-        	height: 77px; 
+        	background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/static/img/logo2021.png');
+        	width: 292px; 
+        	height: 79px; 
         	background-size: cover; }
     </style>
 <?php }
