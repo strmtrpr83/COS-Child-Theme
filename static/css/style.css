@@ -5,7 +5,7 @@
 *	Author: Jonathan Hendricker
 *	Author URI: 
 *	Template: Colleges-Theme
-*	Version: 1.0.25
+*	Version: 1.0.26
 *   Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
 **/
 
@@ -604,7 +604,7 @@ article:last-of-type + hr{
 }
 .ucf-social-icons .ucf-social-link.grey {
 	color: #3e3e3e;
-	background-color: #ffffff;
+	background-color: #ffffff !important;
 }
 
 .primary-footer-section-bottom > h2 { 
