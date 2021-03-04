@@ -793,6 +793,7 @@ add_shortcode('cos-category-and-tags', 'cos_display_category_tag_content');
 /**
  * Dashboard Cusomtizations 
  **/
+/*
 // Change Log-In Screen Logo
 function my_custom_login_logo() { ?>
     <style type="text/css">
@@ -818,11 +819,12 @@ function put_my_title(){
     return ('College of Sciences');     
 }
 add_filter('login_headertitle', 'put_my_title');
-
+*/
 
 /**
  * Change 'Username or Email' login text to 'UCF NID'
  **/
+/*
 add_filter( 'gettext', 'register_text'  );
 add_filter( 'gettext', 'remove_lostpassword_text' );
 
@@ -830,13 +832,15 @@ function register_text( $translated ) {
      $translated = str_ireplace(  'Username or Email Address',  'UCF NID Credentials (No @ucf.edu)',  $translated );
      return $translated;
 }
+*/
+
 /**
  * Remove the 'Lost your password?' option
  **/
 function remove_lostpassword_text ( $text ) {
      if ($text === 'Lost your password?'){$text = '';}
             return $text;
- }
+}
 
  /**
   * Allow Feedzy Pro plugin to link imported  

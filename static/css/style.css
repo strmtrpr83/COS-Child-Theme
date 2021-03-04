@@ -5,7 +5,7 @@
 *	Author: Jonathan Hendricker
 *	Author URI: 
 *	Template: Colleges-Theme
-*	Version: 1.0.26
+*	Version: 1.0.27
 *   Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
 **/
 
@@ -20,7 +20,15 @@
 .site-navbar {
 	background: rgba(0, 0, 0, 0.8);
 }
-.navbar-inverse .navbar-nav .active>.nav-link, .navbar-inverse .navbar-nav .nav-link.active, .navbar-inverse .navbar-nav .nav-link.open, .navbar-inverse .navbar-nav .nav-link:active, .navbar-inverse .navbar-nav .nav-link:hover, .navbar-inverse .navbar-nav .open>.nav-link, .navbar-inverse .navbar-nav .show>.nav-link, .navbar-inverse .navbar-nav .twitter-typeahead .tt-open>.nav-link, .twitter-typeahead .navbar-inverse .navbhoar-nav .tt-open>.nav-link {
+.navbar-inverse .navbar-nav .active>.nav-link, 
+.navbar-inverse .navbar-nav .nav-link.active, 
+.navbar-inverse .navbar-nav .nav-link.open, 
+.navbar-inverse .navbar-nav .nav-link:active, 
+.navbar-inverse .navbar-nav .nav-link:hover, 
+.navbar-inverse .navbar-nav .open>.nav-link, 
+.navbar-inverse .navbar-nav .show>.nav-link, 
+.navbar-inverse .navbar-nav .twitter-typeahead .tt-open>.nav-link, 
+.twitter-typeahead .navbar-inverse .navbhoar-nav .tt-open>.nav-link {
 	background: none;
 }
 .navbar-inverse .navbar-nav .dropdown-toggle::after {
@@ -92,7 +100,6 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
 	font-size: 4.5rem;
 	text-align: left;
 	padding:0.15em;
-
 	background: rgba(255, 201, 4, 0.875);
 }
 .offset-lg-1{
@@ -171,7 +178,10 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
 	color: #ffc904;
 }
 
-.ucf-news-modern .ucf-news-item-label, .ucf-news-modern .ucf-news-section-title, .ucf-news.modern .ucf-news-item-label, .ucf-news.modern .ucf-news-section-title {
+.ucf-news-modern .ucf-news-item-label, 
+.ucf-news-modern .ucf-news-section-title, 
+.ucf-news.modern .ucf-news-item-label, 
+.ucf-news.modern .ucf-news-section-title {
 	font-family: "Gotham SSm 7r","Gotham SSm 	A","Gotham SSm B","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-style: normal;
     font-weight: 70;
@@ -184,7 +194,8 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
     padding: 2px 15px;
     text-transform: uppercase;
 }
-.ucf-news-modern .ucf-news-item-title, .ucf-news.modern .ucf-news-item-title {
+.ucf-news-modern .ucf-news-item-title, 
+.ucf-news.modern .ucf-news-item-title {
 	font-family: "Gotham SSm 7r","Gotham SSm A","Gotham SSm B","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-style: normal;
     font-weight: 70;
@@ -397,6 +408,7 @@ img.float-right {
 	overflow-y: hidden;
 	height: auto;
 }
+p { overflow-wrap: break-word; }
 
 /**************************/
 /* Full Page Header Image */
@@ -409,7 +421,8 @@ img.float-right {
 /* Column Tweaks */
 /*****************/
 .col-lg-1 img, .col-lg-2 img, .col-lg-3 img,
-.col-lg-4 img, .col-lg-5 img, .col-lg-6 img, .col-lg-8 img, .col-lg-9 img, .col-lg-9 img,
+.col-lg-4 img, .col-lg-5 img, .col-lg-6 img, 
+.col-lg-8 img, .col-lg-9 img, .col-lg-9 img,
 .col-lg-10 img,.col-lg-11 img, .col-lg-12 img {
 	max-width: 100%;
 	height: auto;
@@ -554,6 +567,9 @@ img.dss_talk_bg:hover {
 h3.heading-underline {
 	margin-top: 1em;
 }
+.jumbotron.bg-primary .heading-underline-inverse::after {
+  border-bottom-color: #000000;
+}
 
 /******************/
 /* Button Styling */
@@ -602,11 +618,6 @@ article:last-of-type + hr{
 .site-footer {
 	background-color: #3e3e3e !important;
 }
-.ucf-social-icons .ucf-social-link.grey {
-	color: #3e3e3e;
-	background-color: #ffffff !important;
-}
-
 .primary-footer-section-bottom > h2 { 
   color: #ffffff !important;
 	font-size: 22px;
@@ -646,7 +657,6 @@ article:last-of-type + hr{
   font-style: normal;
   font-weight: 30;
 }
-
 .footer-title-sm {
 	font-size: 18px;
 }
@@ -658,7 +668,9 @@ article:last-of-type + hr{
 .site-footer #footer-menu li:last-child {
   border-right: none!important;
 }
-.site-footer a:active, .site-footer a:focus, .site-footer a:hover {
+.site-footer a:active, 
+.site-footer a:focus, 
+.site-footer a:hover {
   color: #fff!important;
   text-decoration: none;
 }
@@ -712,6 +724,12 @@ article:last-of-type + hr{
   text-align: center;
   display: block;
 }
+.ucf-social-icons .ucf-social-link.grey {
+  background-color: #ffffff !important;
+}
+.ucf-social-icons .ucf-social-link.grey:hover {
+  background-color: #777e81 !important;
+}
 
 /***************/
 /* Gallery CSS */
@@ -719,23 +737,19 @@ article:last-of-type + hr{
 .gallery img[data-mce-selected]:focus {
   outline: none;
 }
-
 .gallery a {
   cursor: default;
 }
-
 .gallery {
   margin: auto -6px;
   padding: 6px 0;
   line-height: 1;
   overflow-x: hidden;
 }
-
 .ie7 .gallery,
 .ie8 .gallery {
   margin: auto;
 }
-
 .gallery .gallery-item {
   float: left;
   margin: 0;
@@ -745,70 +759,55 @@ article:last-of-type + hr{
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
 .ie7 .gallery .gallery-item,
 .ie8 .gallery .gallery-item {
   padding: 6px 0;
 }
-
 .gallery .gallery-caption,
 .gallery .gallery-icon {
   margin: 0;
 }
-
 .gallery .gallery-caption {
   font-size: 13px;
   margin: 4px 0;
 }
-
 .gallery-columns-1 .gallery-item {
   width: 100%;
 }
-
 .gallery-columns-2 .gallery-item {
   width: 50%;
 }
-
 .gallery-columns-3 .gallery-item {
   width: 33.333%;
 }
-
 .ie8 .gallery-columns-3 .gallery-item,
 .ie7 .gallery-columns-3 .gallery-item {
   width: 33%;
 }
-
 .gallery-columns-4 .gallery-item {
   width: 25%;
 }
-
 .gallery-columns-5 .gallery-item {
   width: 20%;
 }
-
 .gallery-columns-6 .gallery-item {
   width: 16.665%;
 }
-
 .gallery-columns-7 .gallery-item {
   width: 14.285%;
 }
-
 .gallery-columns-8 .gallery-item {
   width: 12.5%;
 }
-
 .gallery-columns-9 .gallery-item {
   width: 11.111%;
 }
-
 .gallery img {
   max-width: 100%;
   height: auto;
   border: none;
   padding: 0;
 }
-
 .gallery { margin: 0 auto 18px; }
 .gallery .gallery-item {
   float: left;
