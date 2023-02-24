@@ -842,16 +842,16 @@ function remove_lostpassword_text ( $text ) {
             return $text;
 }
 
- /**
-  * Allow Feedzy Pro plugin to link imported  
-  * articles to their original sources
-  *
-  * @author Jonathan Hendricker (Original Author Feedzy Pro)
-  * @since 1.0.12
-  **/
- add_filter('post_link', function( $url, $id ){
+/**
+ * Allow Feedzy Pro plugin to link imported  
+ * articles to their original sources
+ *
+ * @author Jonathan Hendricker (Original Author Feedzy Pro)
+ * @since 1.0.12
+ **/
+add_filter('post_link', function( $url, $id ){
 
-    $feed_url = get_post_meta( $id->ID, 'feedzy_item_url', true );
+	$feed_url = get_post_meta( $id->ID, 'feedzy_item_url', true );
 
     if ( !empty( $feed_url) )
         $url = $feed_url;
@@ -860,45 +860,84 @@ function remove_lostpassword_text ( $text ) {
 
 }, 99, 2);
 
- /**
-  * Add SVG support instead of using Font Awesome  
-  * to help reduce plugin bloat
-  *
-  * @author Jonathan Hendricker 
-  * @since 1.0.28
-  **/
-  add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
 
-	global $wp_version;
-  	if ( $wp_version !== '4.7.1' ) {
-    	return $data;
-  	}
+/**
+ * Define a Custom Color Palette for Guttenberg  
+ *
+ * @author Jonathan Hendricker
+ * @since 1.0.29
+ **/
+function custom_color_palette(){ 
 
-  	$filetype = wp_check_filetype( $filename, $mimes );
-
-	return [
-		'ext'             => $filetype['ext'],
-		'type'            => $filetype['type'],
-		'proper_filename' => $data['proper_filename']
+	$newColorPalette = [
+		[
+			'name'  => esc_html__( 'Black', 'cos-child-theme' ),
+			'slug'  => 'black',
+			'color' => '#000000',
+		],	
+		[
+			'name'  => esc_html__( 'Dark gray', 'cos-child-theme' ),
+			'slug'  => 'dark-gray',
+			'color' => '#3e3e3e',
+		],
+		[
+			'name'  => esc_html__( 'Gray', 'cos-child-theme' ),
+			'slug'  => 'gray',
+			'color' => '#767676',
+		],
+		[
+			'name'  => esc_html__( 'Light gray', 'cos-child-theme' ),
+			'slug'  => 'light-gray',
+			'color' => '#efefef',
+		],
+		[
+			'name'  => esc_html__( 'Lighter gray', 'cos-child-theme' ),
+			'slug'  => 'lighter-gray',
+			'color' => '#f7f7f7',
+		],
+		[
+			'name'  => esc_html__( 'White', 'cos-child-theme' ),
+			'slug'  => 'white',
+			'color' => '#ffffff',
+		],
+		[
+			'name'  => esc_html__( 'Dark gold', 'cos-child-theme' ),
+			'slug'  => 'dark-gold',
+			'color' => '#e5b700',
+		],
+		[
+			'name'  => esc_html__( 'Gold', 'cos-child-theme' ),
+			'slug'  => 'gold',
+			'color' => '#ffc904',
+		],
+		[
+			'name'  => esc_html__( 'Blue', 'cos-child-theme' ),
+			'slug'  => 'blue',
+			'color' => '#0275d8',
+		],
+		[
+			'name'  => esc_html__( 'Light blue', 'cos-child-theme' ),
+			'slug'  => 'light-blue',
+			'color' => '#81cfe0',
+		],
+		[
+			'name'  => esc_html__( 'Green', 'cos-child-theme' ),
+			'slug'  => 'green',
+			'color' => '#2ecc71',
+		],
+		[
+			'name'  => esc_html__( 'Red', 'cos-child-theme' ),
+			'slug'  => 'red',
+			'color' => '#ff6445',
+		],
+		[
+			'name'  => esc_html__( 'Orange', 'cos-child-theme' ),
+			'slug'  => 'orange',
+			'color' => '#f4b350',
+		],
 	];
 
-}, 10, 4 );
-
-function cc_mime_types( $mimes ){
-
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-
+	add_theme_support('editor-color-palette', $newColorPalette);
+	
 }
-
-add_filter( 'upload_mimes', 'cc_mime_types' );
-  
-function fix_svg() {
-	echo '<style type="text/css">
-		.attachment-266x266, .thumbnail img {
-			width: 100% !important;
-			height: auto !important;
-		}
-		</style>';
-}
-add_action( 'admin_head', 'fix_svg' );
+add_action( 'after_setup_theme', 'custom_color_palette' );
