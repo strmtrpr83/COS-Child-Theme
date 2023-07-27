@@ -199,10 +199,10 @@ function cos_child_theme_customize_register( $wp_customize ) {
 
 	$wp_customize->add_control( 'footer_type_option', 
 		array(
-			'label' => __( 'Footer Type' ),			
-			'section' => 'cos_child_theme_footer_options', 
-			'type' => 'radio',
-			'capability' => 'edit_theme_options',
+			'label' 	=> __( 'Footer Type' ),			
+			'section' 	=> 'cos_child_theme_footer_options', 
+			'type' 		=> 'radio',
+			'capability'=> 'edit_theme_options',
 			'choices'	=> array(
 				'college'		=> __( 'College' ),
 				'department'	=> __( 'COS Department' ),
@@ -255,7 +255,7 @@ function cos_child_theme_customize_register( $wp_customize ) {
 		array(
 			'type' 				=> 'checkbox',
 			'label' 			=> __( 'Display a Post&#39;s Featured Image' ),
-			'description' => __( 'Option to display a post&#39;s featured image at the beginning of the post before the post content.' ),			
+			'description' 		=> __( 'Option to display a post&#39;s featured image at the beginning of the post before the post content.' ),			
 			'section' 			=> 'cos_child_theme_display_posts_options', 			
 			'capability' 		=> 'edit_theme_options',			
 		)
@@ -365,6 +365,28 @@ function get_person_website_markup( $post ) {
 <?php
 	endif;
 	return ob_get_clean();
+}
+if (!function_exists('get_person_association_markup')) {
+	function get_person_association_markup( $post ) {
+		if ( $post->post_type !== 'person' ) { return; }
+
+		ob_start();
+
+		if ( $person_association = get_field( 'person_association', $post->ID ) ):
+	?>
+		<div class="row">
+			<div class="col-xl-4 col-md-12 col-sm-4 person-label">
+				Association
+			</div>
+			<div class="col-xl-8 col-md-12 col-sm-8 person-attr">				
+				<?php echo $person_association; ?>
+			</div>
+		</div>
+		<hr class="my-2">
+	<?php
+		endif;
+		return ob_get_clean();
+	}
 }
 
 /**
