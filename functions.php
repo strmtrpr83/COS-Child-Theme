@@ -366,20 +366,20 @@ function get_person_website_markup( $post ) {
 	endif;
 	return ob_get_clean();
 }
-if (!function_exists('get_person_association_markup')) {
-	function get_person_association_markup( $post ) {
+if (!function_exists('get_person_affiliation_markup')) {
+	function get_person_affiliation_markup( $post ) {
 		if ( $post->post_type !== 'person' ) { return; }
 
 		ob_start();
 
-		if ( $person_association = get_field( 'person_association', $post->ID ) ):
+		if ( $person_affiliation = get_field( 'person_affiliation', $post->ID ) ):
 	?>
 		<div class="row">
 			<div class="col-xl-4 col-md-12 col-sm-4 person-label">
-				Association
+				Affiliation
 			</div>
 			<div class="col-xl-8 col-md-12 col-sm-8 person-attr">				
-				<?php echo $person_association; ?>
+				<?php echo $person_affiliation; ?>
 			</div>
 		</div>
 		<hr class="my-2">

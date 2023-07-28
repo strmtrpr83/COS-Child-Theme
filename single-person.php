@@ -22,7 +22,7 @@
 					<?php echo get_person_contact_btns_markup( $post ); ?>
 
 					<?php echo get_person_dept_markup( $post ); ?>
-					<?php echo get_person_association_markup( $post ); ?>					
+					<?php echo get_person_affiliation_markup( $post ); ?>					
 					<?php echo get_person_office_markup( $post ); ?>
 					<?php echo get_person_email_markup( $post ); ?>
 					<?php echo get_person_phones_markup( $post ); ?>
