@@ -884,6 +884,23 @@ add_filter('post_link', function( $url, $id ){
 
 
 /**
+ * Add larger resolution images to be shown in the header
+ * instead of the max 1600 pixels wide
+ * 
+ * @author Jonathan Hendricker
+ * @Since 1.0.40
+ */
+if( !function_exists( 'cos_xxl_header_images' ) ) {
+	function cos_xxl_header_images(){
+		add_image_size( 'header-img-xxl', 1920, 525, true );
+		add_image_size( 'header-img-short-xxl', 1920, 400, true );
+		add_image_size( 'bg-img-xxl', 1920, 2000, true );
+	}
+ 	add_action( 'after_setup_theme', 'cos_xxl_header_images' );
+}
+ 
+
+/**
  * Define a Custom Color Palette for Guttenberg  
  *
  * @author Jonathan Hendricker

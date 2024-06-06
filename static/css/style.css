@@ -450,22 +450,6 @@ input {
 }
 
 /* Person */
-@media (min-width: 992px){
-  .col-lg-7 {
-      -webkit-box-flex: 0;
-      -ms-flex: 0 0 58.33333%;
-      flex: 0 0 58.33333%;
-      max-width: 58.33333%;
-  }
-}
-@media (min-width: 768px){
-  .col-md-8 {
-      -webkit-box-flex: 0;
-      -ms-flex: 0 0 66.66667%;
-      flex: 0 0 66.66667%;
-      max-width: 66.66667%;
-  }
-}
 @media (max-width: 768px){
   .person-content .flex-column {
     -webkit-box-orient: vertical!important;
