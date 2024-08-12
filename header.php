@@ -10,7 +10,7 @@
 				if ( is_category() ) 
 					echo child_get_header_markup(); 
 				else 
-					echo get_header_markup(); 
+					echo child_get_header_markup(); 
 			?>
 		</header>
 		<main id="main" class="site-main">
