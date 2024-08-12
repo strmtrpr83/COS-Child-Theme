@@ -6,7 +6,7 @@
  *	Author URI: 
  *	Template: Colleges-Theme
  *  Text Domain: cos-child-theme
- *	Version: 1.0.34
+ *	Version: 1.0.35
  *  Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
  **/
 
@@ -338,7 +338,8 @@ body.home .site-header .header-content .home-header-title-wrapper .col-lg
   margin-bottom: 0;
 }
 .ucf-news-item-details > a,
-.ucf-news-item-details a {
+.ucf-news-item-details a,
+.ucf-news-item a {
   text-decoration: none;
 }
 .ucf-news.modern .ucf-news-item-content {
