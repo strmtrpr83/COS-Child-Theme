@@ -6,7 +6,7 @@
  *	Author URI: 
  *	Template: Colleges-Theme
  *  Text Domain: cos-child-theme
- *	Version: 1.0.35
+ *	Version: 1.0.36
  *  Github Theme URI: https://github.com/strmtrpr83/COS-Child-Theme
  **/
 
@@ -734,6 +734,7 @@ article:last-of-type + hr{
 .site-footer, .site-footer #footer-menu li a {
   font-style: normal;
   font-weight: 30;
+  text-decoration: none;
 }
 .footer-title-sm {
 	font-size: 18px;
@@ -750,10 +751,11 @@ article:last-of-type + hr{
 .site-footer a:focus, 
 .site-footer a:hover {
   color: #fff!important;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .site-footer a {
   color: #ffffff !important;
+  text-decoration: none;
 }
 .site-footer a.btn-primary {
   color: #000000 !important;
@@ -762,9 +764,8 @@ article:last-of-type + hr{
   font-size: 12px;
   letter-spacing: 0;
 }
-.site-footer #footer-menu li a {
-  font-style: normal;
-  font-weight: 30;
+.site-footer #footer-menu li a:hover {
+  text-decoration: underline;
 }
 #footer-menu li {
   border-right: 1px solid #222;
@@ -802,6 +803,13 @@ article:last-of-type + hr{
   text-align: center;
   display: block;
 }
+.ucf-footer-address a {
+ text-decoration: none;
+}
+.ucf-footer-address a:hover {
+  text-decoration: underline; 
+ }
+
 .ucf-social-icons .ucf-social-link.grey {
   background-color: #ffffff !important;
 }
